@@ -10,14 +10,19 @@ import {
     MenuButton,
     MenuList,
     MenuItem,
-    MenuDivider,
+    useColorMode,
     useDisclosure,
     useColorModeValue,
     Stack,
   } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
   
-const NavLink: React.FC<{ children: React.ReactNode }> = ({ children }: { children: React.ReactNode }) => (
+type NavLinkProps = {
+  children: React.ReactNode,
+  onClick?: () => void
+}
+
+const NavLink: React.FC<NavLinkProps> = ({ children, ...props }: NavLinkProps) => (
   <Link
     px={2}
     py={1}
@@ -26,13 +31,14 @@ const NavLink: React.FC<{ children: React.ReactNode }> = ({ children }: { childr
       textDecoration: 'none',
       bg: useColorModeValue('gray.200', 'gray.700'),
     }}
-    href={'#'}>
+    {...props}>
     {children}
   </Link>
 );
   
 export const NavBar: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { colorMode, toggleColorMode } = useColorMode();
 
   return (
     <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
@@ -51,7 +57,7 @@ export const NavBar: React.FC = () => {
             as={'nav'}
             spacing={4}
             display={{ base: 'none', md: 'flex' }}>
-            <NavLink>Dark Mode</NavLink>
+            <NavLink onClick={toggleColorMode}>{colorMode === "light" ? "Dark" : "Light"} Mode</NavLink>
           </HStack>
         </HStack>
           <Menu>
@@ -68,10 +74,7 @@ export const NavBar: React.FC = () => {
               />
             </MenuButton>
             <MenuList>
-              <MenuItem>Link 1</MenuItem>
-              <MenuItem>Link 2</MenuItem>
-              <MenuDivider />
-              <MenuItem>Link 3</MenuItem>
+              <MenuItem>Log Out</MenuItem>
             </MenuList>
           </Menu>
         </Flex>
@@ -80,7 +83,7 @@ export const NavBar: React.FC = () => {
       {isOpen ? (
         <Box pb={4} display={{ md: 'none' }}>
           <Stack as={'nav'} spacing={4}>
-            <NavLink>Dark Mode</NavLink>
+            <NavLink onClick={toggleColorMode}>{colorMode === "light" ? "Dark" : "Light"} Mode</NavLink>
           </Stack>
         </Box>
       ) : null}
