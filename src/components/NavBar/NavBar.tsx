@@ -15,7 +15,7 @@ import {
     useColorModeValue,
     Stack,
   } from '@chakra-ui/react';
-import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
+import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
   
 type NavLinkProps = {
   children: React.ReactNode,
@@ -57,7 +57,7 @@ export const NavBar: React.FC = () => {
             as={'nav'}
             spacing={4}
             display={{ base: 'none', md: 'flex' }}>
-            <NavLink onClick={toggleColorMode}>{colorMode === "light" ? "Dark" : "Light"} Mode</NavLink>
+            <NavLink onClick={toggleColorMode}>{colorMode === "light" ? <MoonIcon /> : <SunIcon />}</NavLink>
           </HStack>
         </HStack>
           <Menu>
