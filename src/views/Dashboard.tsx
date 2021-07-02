@@ -1,7 +1,11 @@
 import { Flex, useColorModeValue } from '@chakra-ui/react';
 import { useEffect } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { useHistory } from 'react-router';
 import { useStore } from '../store/store';
 import { NavBar, MainContent, SideBar } from '../components';
+import { auth } from '../index';
+import constants from '../store/constants';
 
 const dummyNotes = [
   {
@@ -28,10 +32,18 @@ export const DashboardPage: React.FC = () => {
   const notes = useStore((state) => state.notes);
   const setNotes = useStore((state) => state.setNotes);
   const selectedId = useStore((state) => state.selectedId);
+  const [ user ] = useAuthState(auth);
+  const history = useHistory();
+
+  useEffect(() => {
+    if (user === null) {
+      history.push(constants.LOGIN_ROUTE);
+    }
+  }, [ user ]);
 
   useEffect(() => {
     setNotes(dummyNotes);
-  }, [])
+  }, []);
 
   return (
     <>
