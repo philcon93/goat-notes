@@ -1,4 +1,4 @@
-# Goat Surveys
+# Goats Notes
 
 This project can also be viewed on [goats-notes.vercel.app](https://goats-notes.vercel.app)
 
