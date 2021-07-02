@@ -24,3 +24,8 @@ Runs the app in the development mode. Open [http://localhost:3000](http://localh
 
 ## Dependencies
 
+- Create React App with TypeScript template
+- React Router for routing
+- Chakra UI for base component library
+- Firebase for auth and database
+- Zustand for state management
