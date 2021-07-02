@@ -7,7 +7,6 @@ import { theme } from './store/theme';
 
 
 const App: React.FC = () => {
-  console.log(process.env.REACT_APP_FB_KEY);
   return (
     <ChakraProvider>
       <ColorModeScript initialColorMode={theme.config.initialColorMode} />
