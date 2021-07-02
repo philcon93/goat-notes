@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import {
   Flex,
   Box,
@@ -6,8 +7,28 @@ import {
   Heading,
   useColorModeValue,
 } from '@chakra-ui/react';
+import firebase from 'firebase';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { useHistory } from 'react-router';
+import { auth } from '../index';
+import constants from '../store/constants';
 
 export const LoginPage: React.FC = () => {
+  const [ user ] = useAuthState(auth);
+  const history = useHistory();
+
+  useEffect(() => {
+    if (user !== null) {
+      history.push(constants.DASHBOARD_ROUTE);
+    }
+  }, [ user ]);
+
+  const signInWithGoogle = () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+
+    auth.signInWithPopup(provider);
+  };
+
   return (
     <Flex
       minH={'100vh'}
@@ -27,7 +48,8 @@ export const LoginPage: React.FC = () => {
             <Button
                 bg={'blue.400'}
                 color={'white'}
-                _hover={{ bg: 'blue.500' }}>
+                _hover={{ bg: 'blue.500' }}
+                onClick={signInWithGoogle}>
                 Sign in with Google account
               </Button>
           </Stack>

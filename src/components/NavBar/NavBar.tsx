@@ -16,6 +16,7 @@ import {
     Stack,
   } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
+import { auth } from '../../index';
   
 type NavLinkProps = {
   children: React.ReactNode,
@@ -39,6 +40,10 @@ const NavLink: React.FC<NavLinkProps> = ({ children, ...props }: NavLinkProps) =
 export const NavBar: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { colorMode, toggleColorMode } = useColorMode();
+
+  const signOut = () => {
+    return auth.currentUser && auth.signOut()
+  };
 
   return (
     <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
@@ -74,7 +79,7 @@ export const NavBar: React.FC = () => {
               />
             </MenuButton>
             <MenuList>
-              <MenuItem>Log Out</MenuItem>
+              <MenuItem onClick={signOut}>Log Out</MenuItem>
             </MenuList>
           </Menu>
         </Flex>

@@ -1,5 +1,5 @@
-import { Flex, useColorModeValue } from '@chakra-ui/react';
 import { useEffect } from 'react';
+import { Flex, useColorModeValue } from '@chakra-ui/react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useHistory } from 'react-router';
 import { useStore } from '../store/store';
