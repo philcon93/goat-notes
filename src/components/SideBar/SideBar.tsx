@@ -1,19 +1,17 @@
-import { Flex } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
+import { NoteItemData } from '../../store/store';
 import { NoteItem } from '../index';
-import { NoteItemProps } from '../NoteItem/NoteItem';
 
 type Props = {
-    notes: NoteItemProps[]
+    notes: NoteItemData[]
 }
 
 export const SideBar: React.FC<Props> = ({ notes }: Props) => {
   return (
-    <Flex
-        w={'20vw'}
-        h={`calc(100vh - 64px)`}>
-        {notes.map(note =>
-            <NoteItem key={note.id} title={note.title} body={note.body} timeStamp={note.timeStamp} />
-        )}
-    </Flex>
+    <Box w={'20vw'} h={`calc(100vh - 64px)`}>
+      {notes.map(note =>
+          <NoteItem key={note.id} id={note.id} title={note.title} body={note.body} timeStamp={note.timeStamp} />
+      )}
+    </Box>
   );
 }
