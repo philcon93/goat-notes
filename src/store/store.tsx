@@ -1,10 +1,12 @@
+import firebase from "firebase";
 import create, { State } from 'zustand';
 
 export type NoteItemData = {
     id: string,
     title: string,
     body?: string,
-    timeStamp?: string
+    dateCreated: firebase.firestore.Timestamp,
+    userId: string
 }
 
 export interface AppState extends State {

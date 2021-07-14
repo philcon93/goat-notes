@@ -10,7 +10,7 @@ import {
 import firebase from 'firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useHistory } from 'react-router';
-import { auth } from '../index';
+import { auth } from '../store/firebase';
 import constants from '../store/constants';
 
 export const LoginPage: React.FC = () => {

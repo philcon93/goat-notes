@@ -4,34 +4,13 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useHistory } from 'react-router';
 import { useStore } from '../store/store';
 import { NavBar, MainContent, SideBar } from '../components';
-import { auth } from '../index';
+import { auth, db } from '../store/firebase';
 import constants from '../store/constants';
 
-const dummyNotes = [
-  {
-    id: '123',
-    title: 'Portfolio 01',
-    body: '<p>I work within a cross-functional product development team to bring together the design (user interface, accessibility, and user experience) and engineering (front-end development) functions of the business.</p>',
-    timeStamp: '31 May'
-  },
-  {
-    id: '456',
-    title: 'Portfolio 02',
-    body: '<h1>Hey friend!</h1>',
-    timeStamp: '31 May'
-  },
-  {
-    id: '789',
-    title: 'Portfolio 03',
-    body: '<ul><li>aaa</li><li>bbb</li><li>ccc</li></ul>',
-    timeStamp: '31 May'
-  }
-]
-
 export const DashboardPage: React.FC = () => {
-  const notes = useStore((state) => state.notes);
-  const setNotes = useStore((state) => state.setNotes);
-  const selectedId = useStore((state) => state.selectedId);
+  const notes = useStore(state => state.notes);
+  const setNotes = useStore(state => state.setNotes);
+  const selectedId = useStore(state => state.selectedId);
   const [ user ] = useAuthState(auth);
   const history = useHistory();
 
@@ -42,8 +21,18 @@ export const DashboardPage: React.FC = () => {
   }, [ user ]);
 
   useEffect(() => {
-    setNotes(dummyNotes);
+    db
+      .collection('notes')
+      .orderBy('dateCreated', 'desc')
+      .limit(100)
+      .onSnapshot(snapshot => {
+        const data: any = snapshot.docs.map(doc => doc.data());
+
+        setNotes(data);
+      })
   }, []);
+
+  console.log(notes)
 
   return (
     <>

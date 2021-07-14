@@ -10,7 +10,13 @@ export const SideBar: React.FC<Props> = ({ notes }: Props) => {
   return (
     <Box w={'20vw'} h={`calc(100vh - 64px)`}>
       {notes.map(note =>
-          <NoteItem key={note.id} id={note.id} title={note.title} body={note.body} timeStamp={note.timeStamp} />
+          <NoteItem
+            key={note.id}
+            id={note.id} 
+            title={note.title}
+            body={note.body}
+            userId={note.userId}
+            dateCreated={note.dateCreated} />
       )}
     </Box>
   );

@@ -1,3 +1,5 @@
+import firebase from 'firebase';
+
 export const firebaseConfig = {
     apiKey: process.env.REACT_APP_FB_KEY,
     authDomain: "goats-notes.firebaseapp.com",
@@ -7,3 +9,8 @@ export const firebaseConfig = {
     appId: process.env.REACT_APP_FB_APP_ID,
     measurementId: process.env.REACT_APP_MEASUREMENT_ID
 };
+
+firebase.initializeApp(firebaseConfig);
+
+export const auth = firebase.auth();
+export const db = firebase.firestore();
