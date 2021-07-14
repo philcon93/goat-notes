@@ -26,13 +26,14 @@ export const DashboardPage: React.FC = () => {
       .orderBy('dateCreated', 'desc')
       .limit(100)
       .onSnapshot(snapshot => {
+        console.log(snapshot.docs)
         const data: any = snapshot.docs.map(doc => doc.data());
 
         setNotes(data);
       })
   }, []);
 
-  console.log(notes)
+  // console.log(notes)
 
   return (
     <>

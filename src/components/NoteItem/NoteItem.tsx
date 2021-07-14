@@ -1,4 +1,6 @@
-import { Box, Divider, Text, useColorModeValue } from '@chakra-ui/react';
+import { Box, Flex, Divider, Text, useColorModeValue } from '@chakra-ui/react';
+import { DeleteIcon } from '@chakra-ui/icons';
+import { db } from '../../store/firebase';
 import { NoteItemData, useStore } from '../../store/store';
 import { removeHTMLTags } from '../../helpers';
 
@@ -14,12 +16,33 @@ export const NoteItem: React.FC<NoteItemData> = ({ id, title, body, dateCreated 
     }
   }
 
+  const deleteNote = async (event : React.MouseEvent<HTMLElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const query = await db.collection("notes").where('id', '==', id).get();
+
+    query.forEach(element => {
+        element.ref.delete();
+        console.log(`deleted: ${element.id}`);
+    });
+  }
+
   return (
     <Box w={'100%'} border={id == selectedId ? '1px' : 0} _hover={{ cursor: 'pointer' }} onClick={updateSelect}>
         <Box py={4} px={2}>
           <Text fontSize={'lg'} color={useColorModeValue('gray.900', 'gray.200')}>{title}</Text>
-          { body && <Text fontSize={'sm'} paddingBottom={8} color={useColorModeValue('gray.600', 'gray.200')}>{removeHTMLTags(body).substr(0, 30)}...</Text>}
-          <Text fontSize={'xs'} color={useColorModeValue('gray.600', 'gray.200')}>{new Date(dateCreated.seconds).toDateString()}</Text>
+          { body && <Text fontSize={'sm'} paddingBottom={8} color={useColorModeValue('gray.600', 'gray.200')}>{removeHTMLTags(body).substr(0, 30)}...</Text> }
+          <Flex justifyContent={'space-between'}>
+          { dateCreated !== null && <Text fontSize={'xs'} color={useColorModeValue('gray.600', 'gray.200')}>{new Date(dateCreated.seconds).toDateString()}</Text> }
+          <Text
+            onClick={deleteNote}
+            fontSize={'xs'}
+            color={useColorModeValue('gray.600', 'gray.200')}
+            _hover={{ color: 'red.500' }}>
+              <DeleteIcon />
+            </Text>
+          </Flex>
         </Box>
         <Divider />
     </Box>
