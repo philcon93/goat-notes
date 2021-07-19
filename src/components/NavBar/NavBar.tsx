@@ -17,6 +17,7 @@ import {
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
 import { auth } from '../../store/firebase';
+import constants from '../../store/constants';
   
 type NavLinkProps = {
   children: React.ReactNode,
@@ -55,7 +56,7 @@ export const NavBar: React.FC = () => {
           display={{ md: 'none' }}
           onClick={isOpen ? onClose : onOpen}
         />
-        <Box alignItems={'center'}>Goats Notes</Box>
+        <Box alignItems={'center'}>{constants.COMPANY_NAME}</Box>
         <Flex alignItems={'center'}>
         <HStack spacing={8} alignItems={'center'}>
           <HStack

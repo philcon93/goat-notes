@@ -5,6 +5,7 @@ import { db } from '../../store/firebase';
 import { useStore } from '../../store/store';
 import { Quill } from '../index';
 import { useDebounce } from '../../hooks';
+import constants from '../../store/constants';
 
 export type Props = {
   selectedId: string
@@ -16,7 +17,7 @@ export const MainContent: React.FC<Props> = ({ selectedId } : Props) => {
   const deboucedTitle = useDebounce(title);
 
   const updateDB = async (value: string | undefined, field: 'title' | 'body') => {
-    await db.collection('notes').doc(note?.docId).update({
+    await db.collection(constants.DB_COLLECTION).doc(note?.docId).update({
       [field]: value,
       dateUpdated: firebase.firestore.FieldValue.serverTimestamp()
     });

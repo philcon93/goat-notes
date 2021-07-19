@@ -22,7 +22,7 @@ export const DashboardPage: React.FC = () => {
 
   useEffect(() => {
     db
-      .collection('notes')
+      .collection(constants.DB_COLLECTION)
       .orderBy('dateUpdated', 'desc')
       .limit(100)
       .onSnapshot(snapshot => {

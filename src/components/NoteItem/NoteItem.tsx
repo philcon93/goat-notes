@@ -4,6 +4,7 @@ import firebase from 'firebase';
 import { db } from '../../store/firebase';
 import { useStore } from '../../store/store';
 import { removeHTMLTags } from '../../helpers';
+import constants from '../../store/constants';
 
 type Props = {
   id: string,
@@ -29,7 +30,7 @@ export const NoteItem: React.FC<Props> = ({ id, title, body, date }: Props) => {
     event.stopPropagation();
 
     if (window.confirm('Are you sure you want to delete this item?')) {
-      const query = await db.collection('notes').where('id', '==', id).get();
+      const query = await db.collection(constants.DB_COLLECTION).where('id', '==', id).get();
 
       if (selectedId === id) {
         setSelectedId('');

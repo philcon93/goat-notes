@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { NoteItemData, useStore } from '../../store/store';
 import { auth, db } from '../../store/firebase';
 import { NoteItem } from '../index';
+import constants from '../../store/constants';
 
 type Props = {
   notes: NoteItemData[]
@@ -17,7 +18,7 @@ export const SideBar: React.FC<Props> = ({ notes }: Props) => {
     const uid = auth.currentUser?.uid;
     const noteId = uuidv4();
 
-    await db.collection('notes').add({
+    await db.collection(constants.DB_COLLECTION).add({
       id: noteId,
       title: 'Untitled Note',
       body: '',
