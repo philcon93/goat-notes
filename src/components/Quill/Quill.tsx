@@ -11,7 +11,7 @@ export type Props = {
 
 export const Quill: React.FC<Props> = ({ body, update } : Props) => {
   const [value, setValue] = useState(body);
-  const deboucedValue = useDebounce(value)
+  const deboucedValue = useDebounce(value);
 
   useEffect(() => {
     setValue(body);

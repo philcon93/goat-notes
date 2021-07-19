@@ -42,7 +42,7 @@ export const SideBar: React.FC<Props> = ({ notes }: Props) => {
           id={note.id} 
           title={note.title}
           body={note.body}
-          dateCreated={note.dateCreated} />
+          date={note.dateUpdated} />
       )}
     </Box>
   );

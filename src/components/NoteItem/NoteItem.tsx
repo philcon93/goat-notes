@@ -9,10 +9,10 @@ type Props = {
   id: string,
   title: string,
   body?: string,
-  dateCreated: firebase.firestore.Timestamp,
+  date: firebase.firestore.Timestamp,
 }
 
-export const NoteItem: React.FC<Props> = ({ id, title, body, dateCreated }: Props) => {
+export const NoteItem: React.FC<Props> = ({ id, title, body, date }: Props) => {
   const selectedId = useStore((state) => state.selectedId);
   const setSelectedId = useStore((state) => state.setSelectedId);
 
@@ -43,7 +43,11 @@ export const NoteItem: React.FC<Props> = ({ id, title, body, dateCreated }: Prop
           <Text fontSize={'lg'} color={useColorModeValue('gray.900', 'gray.200')}>{title}</Text>
           { body && <Text fontSize={'sm'} paddingBottom={8} color={useColorModeValue('gray.600', 'gray.200')}>{removeHTMLTags(body).substr(0, 30)}...</Text> }
           <Flex justifyContent={'space-between'}>
-          { dateCreated !== null && <Text fontSize={'xs'} color={useColorModeValue('gray.600', 'gray.200')}>{new Date(dateCreated.seconds).toDateString()}</Text> }
+          { date !== null &&
+            <Text fontSize={'xs'} color={useColorModeValue('gray.600', 'gray.200')}>
+              {date.toDate().toLocaleTimeString('en-AU') + ' ' + date.toDate().toDateString()}
+            </Text>
+          }
           <Text
             onClick={deleteNote}
             fontSize={'xs'}
