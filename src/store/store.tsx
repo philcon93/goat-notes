@@ -1,7 +1,8 @@
-import firebase from "firebase";
+import firebase from 'firebase';
 import create, { State } from 'zustand';
 
 export type NoteItemData = {
+    docId: string,
     id: string,
     title: string,
     body?: string,

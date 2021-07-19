@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Flex, useColorModeValue } from '@chakra-ui/react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useHistory } from 'react-router';
-import { useStore } from '../store/store';
+import { NoteItemData, useStore } from '../store/store';
 import { NavBar, MainContent, SideBar } from '../components';
 import { auth, db } from '../store/firebase';
 import constants from '../store/constants';
@@ -26,7 +26,12 @@ export const DashboardPage: React.FC = () => {
       .orderBy('dateCreated', 'desc')
       .limit(100)
       .onSnapshot(snapshot => {
-        const data: any = snapshot.docs.map(doc => doc.data());
+        const data = snapshot.docs.map(doc => {
+          const data = doc.data();
+          data.docId = doc.id;
+
+          return data;
+        }) as NoteItemData[];
 
         setNotes(data);
       })

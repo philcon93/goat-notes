@@ -1,20 +1,20 @@
 import {
-    Box,
-    Flex,
-    Avatar,
-    HStack,
-    Link,
-    IconButton,
-    Button,
-    Menu,
-    MenuButton,
-    MenuList,
-    MenuItem,
-    useColorMode,
-    useDisclosure,
-    useColorModeValue,
-    Stack,
-  } from '@chakra-ui/react';
+  Box,
+  Flex,
+  Avatar,
+  HStack,
+  Link,
+  IconButton,
+  Button,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  useColorMode,
+  useDisclosure,
+  useColorModeValue,
+  Stack,
+} from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
 import { auth } from '../../store/firebase';
   
@@ -55,14 +55,14 @@ export const NavBar: React.FC = () => {
           display={{ md: 'none' }}
           onClick={isOpen ? onClose : onOpen}
         />
-        <Box alignItems={'center'}>Logo</Box>
+        <Box alignItems={'center'}>Goats Notes</Box>
         <Flex alignItems={'center'}>
         <HStack spacing={8} alignItems={'center'}>
           <HStack
             as={'nav'}
             spacing={4}
             display={{ base: 'none', md: 'flex' }}>
-            <NavLink onClick={toggleColorMode}>{colorMode === "light" ? <MoonIcon /> : <SunIcon />}</NavLink>
+            <NavLink onClick={toggleColorMode}>{colorMode === 'light' ? <MoonIcon /> : <SunIcon />}</NavLink>
           </HStack>
         </HStack>
           <Menu>
@@ -83,7 +83,7 @@ export const NavBar: React.FC = () => {
       {isOpen ? (
         <Box pb={4} display={{ md: 'none' }}>
           <Stack as={'nav'} spacing={4}>
-            <NavLink onClick={toggleColorMode}>{colorMode === "light" ? "Dark" : "Light"} Mode</NavLink>
+            <NavLink onClick={toggleColorMode}>{colorMode === 'light' ? 'Dark' : 'Light'} Mode</NavLink>
           </Stack>
         </Box>
       ) : null}

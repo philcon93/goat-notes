@@ -1,10 +1,18 @@
 import { Box, Flex, Divider, Text, useColorModeValue } from '@chakra-ui/react';
 import { DeleteIcon } from '@chakra-ui/icons';
+import firebase from 'firebase';
 import { db } from '../../store/firebase';
-import { NoteItemData, useStore } from '../../store/store';
+import { useStore } from '../../store/store';
 import { removeHTMLTags } from '../../helpers';
 
-export const NoteItem: React.FC<NoteItemData> = ({ id, title, body, dateCreated }: NoteItemData) => {
+type Props = {
+  id: string,
+  title: string,
+  body?: string,
+  dateCreated: firebase.firestore.Timestamp,
+}
+
+export const NoteItem: React.FC<Props> = ({ id, title, body, dateCreated }: Props) => {
   const selectedId = useStore((state) => state.selectedId);
   const setSelectedId = useStore((state) => state.setSelectedId);
 
@@ -20,12 +28,13 @@ export const NoteItem: React.FC<NoteItemData> = ({ id, title, body, dateCreated 
     event.preventDefault();
     event.stopPropagation();
 
-    const query = await db.collection("notes").where('id', '==', id).get();
+    if (window.confirm('Are you sure you want to delete this item?')) {
+      const query = await db.collection('notes').where('id', '==', id).get();
 
-    query.forEach(element => {
-        element.ref.delete();
-        console.log(`deleted: ${element.id}`);
-    });
+      query.forEach(element => {
+          element.ref.delete();
+      });
+    }
   }
 
   return (
