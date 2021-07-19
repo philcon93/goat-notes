@@ -5,7 +5,7 @@ export type NoteItemData = {
     docId: string,
     id: string,
     title: string,
-    body?: string,
+    body: string,
     dateCreated: firebase.firestore.Timestamp,
     dateUpdated: firebase.firestore.Timestamp,
     userId: string

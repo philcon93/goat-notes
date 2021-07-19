@@ -23,7 +23,7 @@ export const DashboardPage: React.FC = () => {
   useEffect(() => {
     db
       .collection('notes')
-      .orderBy('dateCreated', 'desc')
+      .orderBy('dateUpdated', 'desc')
       .limit(100)
       .onSnapshot(snapshot => {
         const data = snapshot.docs.map(doc => {

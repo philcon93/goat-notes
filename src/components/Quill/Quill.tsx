@@ -6,10 +6,10 @@ import { useDebounce } from '../../hooks';
 
 export type Props = {
   body: string | undefined,
-  update: (value: string | undefined) => void
+  updateDB: (value: string | undefined, field: 'title' | 'body') => void
 }
 
-export const Quill: React.FC<Props> = ({ body, update } : Props) => {
+export const Quill: React.FC<Props> = ({ body, updateDB } : Props) => {
   const [value, setValue] = useState(body);
   const deboucedValue = useDebounce(value);
 
@@ -18,8 +18,8 @@ export const Quill: React.FC<Props> = ({ body, update } : Props) => {
   }, [body]);
 
   useEffect(() => {
-    if (deboucedValue) {
-      update(value);
+    if (deboucedValue !== body) {
+      updateDB(value, 'body');
     }
   }, [deboucedValue]);
 

@@ -18,9 +18,9 @@ export const NoteItem: React.FC<Props> = ({ id, title, body, date }: Props) => {
 
   const updateSelect = () => {
     if (selectedId === id) {
-      setSelectedId('')
+      setSelectedId('');
     } else {
-      setSelectedId(id)
+      setSelectedId(id);
     }
   }
 
@@ -30,6 +30,10 @@ export const NoteItem: React.FC<Props> = ({ id, title, body, date }: Props) => {
 
     if (window.confirm('Are you sure you want to delete this item?')) {
       const query = await db.collection('notes').where('id', '==', id).get();
+
+      if (selectedId === id) {
+        setSelectedId('');
+      }
 
       query.forEach(element => {
           element.ref.delete();
